@@ -141,26 +141,6 @@ body, html {
     filter: contrast(1.1) brightness(0.9);
 }
 
-.entry-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.entry-2-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.entry-2-image {
-    max-width: 70%;
-    max-height: 70%;
-    object-fit: contain;
-    filter: contrast(1.2) brightness(0.8);
-    border: 1px solid #2a3a2a;
-}
-
 .footer-links {
     margin-top: 10px;
 }
