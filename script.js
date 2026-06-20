@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const derezText = document.querySelector('.derezzing');
+    const glitchTexts = document.querySelectorAll('.glitch-text');
     const body = document.body;
-    const allElements = document.querySelectorAll('p, h1, h2, li, a, .text-block, .date-box, .author, .red-link');
+    const allElements = document.querySelectorAll('p, h1, h2, li, a, .text-block, .date-box, .author, .red-link, .entry');
     
     // 1. More obvious glitch on .derezzing
     if (derezText) {
@@ -25,6 +26,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 derezText.style.clipPath = 'none';
             }
         }, 80);
+    }
+
+    // 1b. Subtle glitch on .glitch-text elements
+    if (glitchTexts.length) {
+        setInterval(() => {
+            glitchTexts.forEach(el => {
+                if (Math.random() > 0.85) {
+                    const x = Math.random() * 4 - 2;
+                    el.style.textShadow = `${x}px 0 0 rgba(255,0,0,0.6), ${-x}px 0 0 rgba(0,255,255,0.4)`;
+                    el.style.transform = `skewX(${Math.random() * 3 - 1.5}deg)`;
+                    setTimeout(() => {
+                        el.style.textShadow = '';
+                        el.style.transform = '';
+                    }, 60);
+                }
+            });
+        }, 200);
     }
 
     // 2. Site-wide random glitches
