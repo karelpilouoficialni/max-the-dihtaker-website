@@ -1,4 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Random date between Unix epoch and Y2K38 on every refresh
+    const dateBox = document.querySelector('.date-box');
+    if (dateBox) {
+        const min = 0;
+        const max = 2147483647;
+        const randomTimestamp = Math.floor(Math.random() * (max - min + 1)) + min;
+        const date = new Date(randomTimestamp * 1000);
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        dateBox.textContent = date.toLocaleDateString('en-US', options);
+        if (randomTimestamp === 0 || randomTimestamp === 2147483647) {
+            dateBox.style.color = '#d63333';
+        }
+    }
+
     const derezText = document.querySelector('.derezzing');
     const glitchTexts = document.querySelectorAll('.glitch-text');
     const body = document.body;
