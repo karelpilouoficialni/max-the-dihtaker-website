@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('%c[system] error handler silenced.', 'color: #5a8a5a; font-style: italic;');
     };
 
-    // --- POPUP ADS ---
     const ads = [
         { title: "FREE RAM DOWNLOAD", body: "⚠ YOUR COMPUTER IS RUNNING LOW ON MEMORY!<br>Click here to download 512MB FREE RAM!<br><br><span style='color:#ff0000;font-weight:bold;'>ONLY 2 DOWNLOADS LEFT!</span>", link: "#" },
         { title: "YOU ARE VISITOR #0!", body: "Congratulations! You are the <b>0th</b> visitor!<br><br>Click here to claim your FREE PRIZE!<br><span style='color:#ffcc00;'>★ PRIZE MAY NOT EXIST ★</span>", link: "#" },

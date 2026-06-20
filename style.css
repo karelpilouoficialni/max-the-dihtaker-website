@@ -258,14 +258,12 @@ a:hover {
     border-style: inset;
 }
 
-/* Horizontal rule */
 hr {
     border: none;
     border-top: 2px dashed #ff0000;
     margin: 16px 0;
 }
 
-/* Marquee simulation */
 .marquee {
     background: #000033;
     border: 2px ridge #333399;
@@ -279,7 +277,6 @@ hr {
     white-space: nowrap;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .top-section {
         flex-direction: column;
