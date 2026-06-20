@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#cc6600;font-size:1.5rem;font-weight:bold;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#006600;font-weight:bold;'>CLICK TO CLAIM →</span>", link: "#" },
         { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
         { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" },
-        { title: "HOT WOMEN IN YOUR AREA", body: `
+        { title: "HOT WOMEN IN YOUR AREA", noLink: true, body: `
             <div style="padding:16px;text-align:center;">
                 <div style="font-size:1.3rem;font-weight:bold;color:#000000;margin-bottom:14px;">
                     HOT <span style="color:#ff0066;">WOMEN</span> IN YOUR AREA
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Stacey, 20</div>
                     </div>
                 </div>
-                <div style="background:linear-gradient(180deg,#ff3377,#cc0044);border:2px outset #ff6699;padding:8px 32px;color:#ffffff;font-weight:bold;font-size:0.95rem;text-transform:uppercase;letter-spacing:2px;display:inline-block;cursor:pointer;">
+                <div class="ad-join-btn" style="background:linear-gradient(180deg,#ff3377,#cc0044);border:2px outset #ff6699;padding:8px 32px;color:#ffffff;font-weight:bold;font-size:0.95rem;text-transform:uppercase;letter-spacing:2px;display:inline-block;cursor:pointer;">
                     JOIN NOW
                 </div>
             </div>
@@ -155,8 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const wrapper = document.createElement('div');
         wrapper.className = 'popup-ad';
-        const maxW = ad.wide ? '500px' : '320px';
-        wrapper.style.cssText = `position:fixed;left:${left}vw;top:${top}vh;z-index:9997;max-width:${maxW};font-family:"Times New Roman",serif;`;
+        wrapper.style.cssText = `position:fixed;left:${left}vw;top:${top}vh;z-index:9997;max-width:320px;font-family:"Times New Roman",serif;`;
 
         const bar = document.createElement('div');
         bar.style.cssText = `background:linear-gradient(90deg,#000088,#0000cc,#000088);color:#ffffff;padding:4px 8px;font-size:0.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px;border:2px ridge #4444aa;border-bottom:none;display:flex;justify-content:space-between;align-items:center;cursor:move;`;
@@ -179,11 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bodyHtml += ad.body;
         bodyDiv.innerHTML = bodyHtml;
 
-        const adLink = document.createElement('a');
-        adLink.href = ad.link;
-        adLink.style.cssText = `display:block;margin-top:10px;color:#0000ff;font-weight:bold;font-size:0.85rem;text-align:center;text-decoration:underline;cursor:pointer;font-family:"Times New Roman",serif;`;
-        adLink.textContent = 'CLICK HERE';
-        adLink.onclick = (e) => {
+        const showDeadLink = (e) => {
             e.preventDefault();
             const confirmOverlay = document.createElement('div');
             confirmOverlay.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center;font-family:"Times New Roman",serif;`;
@@ -194,7 +189,19 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(confirmOverlay);
         };
 
-        bodyDiv.appendChild(adLink);
+        const joinBtn = bodyDiv.querySelector('.ad-join-btn');
+        if (joinBtn) {
+            joinBtn.onclick = showDeadLink;
+        }
+
+        if (!ad.noLink) {
+            const adLink = document.createElement('a');
+            adLink.href = ad.link;
+            adLink.style.cssText = `display:block;margin-top:10px;color:#0000ff;font-weight:bold;font-size:0.85rem;text-align:center;text-decoration:underline;cursor:pointer;font-family:"Times New Roman",serif;`;
+            adLink.textContent = 'CLICK HERE';
+            adLink.onclick = showDeadLink;
+            bodyDiv.appendChild(adLink);
+        }
         wrapper.appendChild(bar);
         wrapper.appendChild(bodyDiv);
         document.body.appendChild(wrapper);
