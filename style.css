@@ -100,6 +100,7 @@ body, html {
 .derezzing {
     position: relative;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .author {
@@ -158,4 +159,85 @@ body, html {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* Error Popup Overlay */
+.error-popup-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: popup-fadein 0.2s ease-out;
+}
+
+@keyframes popup-fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.error-dialog {
+    background: #0f0f0f;
+    border: 2px solid #555;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.15), inset 0 0 10px rgba(0, 0, 0, 0.8);
+    min-width: 350px;
+    max-width: 450px;
+    font-family: "Courier New", Courier, monospace;
+    animation: dialog-shake 0.3s ease-out;
+}
+
+@keyframes dialog-shake {
+    0% { transform: translate(-2px, 1px); }
+    20% { transform: translate(2px, -1px); }
+    40% { transform: translate(-1px, 2px); }
+    60% { transform: translate(1px, -2px); }
+    80% { transform: translate(-2px, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+.error-title-bar {
+    background: #1a1a2e;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #ff6666;
+    border-bottom: 1px solid #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.error-content {
+    padding: 20px 16px;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+.error-message {
+    display: block;
+}
+
+.error-dismiss-btn {
+    display: block;
+    margin: 0 16px 14px auto;
+    padding: 6px 28px;
+    background: #1a1a2e;
+    border: 1px solid #666;
+    color: #ccc;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.error-dismiss-btn:hover {
+    background: #2a2a4e;
+    color: #fff;
+    border-color: #888;
+}
+
+.error-dismiss-btn:active {
+    background: #3a3a5e;
 }
