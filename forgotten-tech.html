@@ -3,70 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>/Forgotten.tech</title>
+    <title>/FORGOTTEN.TECH</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        body, html {
-            background-image: url('imgs/dritftinginspace.png');
-            background-color: #050510;
-            overflow-y: auto;
-        }
-
-        .tech-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            padding: 40px 150px;
+        body {
+            background-image: none;
+            background: linear-gradient(180deg, #000000 0%, #0a0005 30%, #000a00 60%, #000000 100%);
         }
 
         .terminal-window {
-            background-color: #0a0f12;
-            border: 1px solid #2a4a5a;
-            box-shadow: 0 0 30px rgba(0, 150, 200, 0.08), inset 0 0 60px rgba(0, 0, 0, 0.6);
             max-width: 800px;
-            margin: 0 auto;
+            margin: 30px auto;
+            padding: 0 10px;
         }
 
         .term-header {
-            background: #0d1820;
-            padding: 10px 16px;
-            border-bottom: 1px solid #1a3a4a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .term-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        .term-dot.red { background: #6a1a1a; }
-        .term-dot.yellow { background: #6a5a1a; }
-        .term-dot.green { background: #1a4a1a; }
-
-        .term-title {
-            color: #4a7a8a;
+            background: linear-gradient(90deg, #000044, #000088, #000044);
+            border: 2px ridge #444488;
+            padding: 6px 12px;
             font-size: 0.8rem;
-            margin-left: 10px;
+            font-weight: bold;
+            color: #aaaaff;
+            font-family: "Courier New", monospace;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .term-body {
-            padding: 24px;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            background: linear-gradient(180deg, #0a0a1a 0%, #000005 100%);
+            border: 2px ridge #333366;
+            border-top: none;
+            padding: 16px;
+            font-family: "Courier New", monospace;
+            font-size: 0.9rem;
+            color: #cccccc;
         }
 
         .prompt-line {
-            color: #4a8a6a;
-            margin-bottom: 16px;
+            color: #00ff00;
+            margin-bottom: 12px;
         }
 
         .prompt-line .path {
-            color: #5a8aba;
+            color: #8888ff;
         }
 
         .prompt-line .cursor {
@@ -77,231 +56,149 @@
             50% { opacity: 0; }
         }
 
+        .output-text {
+            color: #ffcc00;
+            margin: 12px 0;
+            padding: 10px;
+            background: #000011;
+            border-left: 3px solid #ff0000;
+            font-size: 0.85rem;
+        }
+
+        .output-text.error {
+            color: #ff4444;
+            border-left-color: #ffff00;
+        }
+
         .dir-listing {
-            margin: 20px 0;
-            padding: 16px;
-            background: rgba(0, 20, 30, 0.4);
-            border-left: 2px solid #1a5a6a;
+            margin: 16px 0;
+            background: #000011;
+            border: 1px inset #333355;
+            padding: 8px;
         }
 
         .dir-item {
             display: flex;
-            gap: 20px;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(30, 60, 70, 0.3);
+            gap: 12px;
+            padding: 3px 0;
+            font-size: 0.8rem;
+            border-bottom: 1px dotted #1a1a3a;
         }
 
         .dir-item:last-child {
             border-bottom: none;
         }
 
-        .dir-perms {
-            color: #3a6a7a;
-            width: 80px;
-            flex-shrink: 0;
-        }
+        .dir-perms { color: #6666aa; width: 70px; flex-shrink: 0; }
+        .dir-size { color: #888888; width: 50px; text-align: right; flex-shrink: 0; }
+        .dir-date { color: #666688; width: 80px; flex-shrink: 0; }
+        .dir-name { color: #00cc00; }
+        .dir-name.dead { color: #cc3333; text-decoration: line-through; }
+        .dir-name.dir { color: #8888ff; }
+        .dir-name.link { color: #6688ff; text-decoration: underline; }
 
-        .dir-size {
-            color: #5a7a5a;
-            width: 60px;
-            text-align: right;
-            flex-shrink: 0;
-        }
-
-        .dir-date {
-            color: #5a6a7a;
-            width: 100px;
-            flex-shrink: 0;
-        }
-
-        .dir-name {
-            color: #8aba8a;
-        }
-
-        .dir-name.dead {
-            color: #7a4a4a;
-            text-decoration: line-through;
-        }
-
-        .dir-name.dir {
-            color: #6a9aba;
-        }
-
-        .dir-name.link {
-            color: #6a8aba;
-            text-decoration: underline;
-        }
-
-        .output-text {
-            color: #8a9a9a;
-            margin: 12px 0;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 2px solid #3a5a3a;
-        }
-
-        .output-text.error {
-            color: #9a5a5a;
-            border-left-color: #6a3a3a;
+        .ascii-art {
+            color: #444466;
+            font-size: 0.5rem;
+            line-height: 1.1;
+            margin: 16px 0;
+            white-space: pre;
+            text-align: center;
         }
 
         .back-link {
             display: inline-block;
-            margin-top: 24px;
-            color: #5a8aba;
-            text-decoration: underline;
-            font-size: 0.9rem;
+            margin-top: 16px;
+            color: #8888ff;
+            font-size: 0.85rem;
         }
 
-        .back-link:hover {
-            color: #8abada;
-        }
-
-        .ascii-art {
-            color: #3a6a7a;
-            font-size: 0.6rem;
-            line-height: 1.2;
-            margin: 16px 0;
-            white-space: pre;
-        }
-
-        @media (max-width: 1024px) {
-            .tech-container { padding: 30px 40px; }
+        hr {
+            border: none;
+            border-top: 1px dashed #444466;
+            margin: 12px 0;
         }
 
         @media (max-width: 768px) {
-            .tech-container { padding: 20px; }
-            .term-body { padding: 16px; }
-            .dir-item { flex-wrap: wrap; gap: 4px; }
+            .term-body { padding: 10px; font-size: 0.8rem; }
+            .dir-item { flex-wrap: wrap; gap: 4px; font-size: 0.75rem; }
             .dir-perms { width: auto; }
             .dir-size { width: auto; }
             .dir-date { width: auto; }
-            .ascii-art { font-size: 0.4rem; }
-        }
-
-        @media (max-width: 480px) {
-            .tech-container { padding: 10px; }
-            .term-body { padding: 12px; font-size: 0.85rem; }
-            .dir-item { font-size: 0.8rem; }
+            .ascii-art { font-size: 0.35rem; }
         }
     </style>
 </head>
 <body>
-    <div class="scanlines"></div>
 
-    <div class="tech-container">
-        <div class="terminal-window">
-            <div class="term-header">
-                <span class="term-dot red"></span>
-                <span class="term-dot yellow"></span>
-                <span class="term-dot green"></span>
-                <span class="term-title">user@forgotten.tech:~/archive</span>
+<div class="desktop-container">
+
+    <div class="top-section">
+        <div class="date-box" style="color: #ff4444;">SYS.ADMIN</div>
+        <div class="pages-box">
+            <h2>PAGES</h2>
+            <ul>
+                <li><a href="index.html">/index</a></li>
+                <li><span class="missing">/forgotten.tech</span></li>
+                <li><span class="void">/dev/null</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="terminal-window">
+        <div class="term-header">user@forgotten.tech:~/archive</div>
+        <div class="term-body">
+
+            <div class="prompt-line">
+                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ <span class="cursor">_</span>
             </div>
-            <div class="term-body">
-                <div class="prompt-line">
-                    <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ <span class="cursor">_</span>
-                </div>
 
-                <div class="output-text">
-                    WARNING: this directory contains formats that were never meant to outlive their creators.<br>
-                    some files have been observed changing size when no one is watching.<br>
-                    a few still accept connections. do not open ports 6660-6669.<br>
-                    the archive is not a backup. it is a holding cell.
-                </div>
+            <div class="output-text">
+                WARNING: this directory contains formats that were never meant to outlive their creators.<br>
+                some files have been observed changing size when no one is watching.<br>
+                a few still accept connections. do not open ports 6660-6669.<br>
+                the archive is not a backup. it is a holding cell.
+            </div>
 
-                <div class="prompt-line">
-                    <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ ls -la
-                </div>
+            <hr>
 
-                <div class="dir-listing">
-                    <div class="dir-item">
-                        <span class="dir-perms">drwxr-x--</span>
-                        <span class="dir-size">--</span>
-                        <span class="dir-date">1998-04-12</span>
-                        <span class="dir-name dir">./</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">drwxr-x--</span>
-                        <span class="dir-size">--</span>
-                        <span class="dir-date">1998-04-12</span>
-                        <span class="dir-name dir">../</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.2k</span>
-                        <span class="dir-date">1999-07-21</span>
-                        <span class="dir-name dead">geocities_archive.tar.gz</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">1.4k</span>
-                        <span class="dir-date">2001-03-08</span>
-                        <span class="dir-name dead">winamp_skins_backup.zip</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.1k</span>
-                        <span class="dir-date">2003-11-02</span>
-                        <span class="dir-name">dialup_modem_sounds.mp3</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.1k</span>
-                        <span class="dir-date">1995-09-14</span>
-                        <span class="dir-name dead">netscape_navigator_bookmarks.html</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.4k</span>
-                        <span class="dir-date">2007-05-30</span>
-                        <span class="dir-name">floppy_disk_controller_driver.sys</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.1k</span>
-                        <span class="dir-date">1997-12-25</span>
-                        <span class="dir-name dead">aol_instant_messenger_logs.txt</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">lrwxrwxrwx</span>
-                        <span class="dir-size">--</span>
-                        <span class="dir-date">1996-01-17</span>
-                        <span class="dir-name link">/dev/null -> void</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">2.1k</span>
-                        <span class="dir-date">2000-02-29</span>
-                        <span class="dir-name dead">icq_message_history.dat</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.3k</span>
-                        <span class="dir-date">2008-06-19</span>
-                        <span class="dir-name">realplayer_license_agreement.txt</span>
-                    </div>
-                    <div class="dir-item">
-                        <span class="dir-perms">-rw-r--r--</span>
-                        <span class="dir-size">0.1k</span>
-                        <span class="dir-date">1994-10-05</span>
-                        <span class="dir-name dead">macromedia_flash_player_v2.swf</span>
-                    </div>
-                </div>
+            <div class="prompt-line">
+                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ ls -la
+            </div>
 
-                <div class="prompt-line">
-                    <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ cat dialup_modem_sounds.mp3
-                </div>
+            <div class="dir-listing">
+                <div class="dir-item"><span class="dir-perms">drwxr-x--</span><span class="dir-size">--</span><span class="dir-date">1998-04-12</span><span class="dir-name dir">./</span></div>
+                <div class="dir-item"><span class="dir-perms">drwxr-x--</span><span class="dir-size">--</span><span class="dir-date">1998-04-12</span><span class="dir-name dir">../</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.2k</span><span class="dir-date">1999-07-21</span><span class="dir-name dead">geocities_archive.tar.gz</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">1.4k</span><span class="dir-date">2001-03-08</span><span class="dir-name dead">winamp_skins_backup.zip</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">2003-11-02</span><span class="dir-name">dialup_modem_sounds.mp3</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1995-09-14</span><span class="dir-name dead">netscape_navigator_bookmarks.html</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.4k</span><span class="dir-date">2007-05-30</span><span class="dir-name">floppy_disk_controller_driver.sys</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1997-12-25</span><span class="dir-name dead">aol_instant_messenger_logs.txt</span></div>
+                <div class="dir-item"><span class="dir-perms">lrwxrwxrwx</span><span class="dir-size">--</span><span class="dir-date">1996-01-17</span><span class="dir-name link">/dev/null -> void</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">2.1k</span><span class="dir-date">2000-02-29</span><span class="dir-name dead">icq_message_history.dat</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.3k</span><span class="dir-date">2008-06-19</span><span class="dir-name">realplayer_license_agreement.txt</span></div>
+                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1994-10-05</span><span class="dir-name dead">macromedia_flash_player_v2.swf</span></div>
+            </div>
 
-                <div class="output-text error">
-                    [0x0000FF] SYS.ERR :: unrecoverable sector at 0xBEEF<br>
-                    [0x0000FE] the file remembers being deleted<br>
-                    [0x0000FD] checksum mismatch — data has been replaced with something else<br>
-                    [0x0000FC] this format does not exist in any known specification<br>
-                    [0x0000FB] whoever archived this is no longer responding<br>
-                    [0x0000FA] do not attempt to reconstruct the original
-                </div>
+            <hr>
 
-                <div class="ascii-art">
+            <div class="prompt-line">
+                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ cat dialup_modem_sounds.mp3
+            </div>
+
+            <div class="output-text error">
+                [0x0000FF] SYS.ERR :: unrecoverable sector at 0xBEEF<br>
+                [0x0000FE] the file remembers being deleted<br>
+                [0x0000FD] checksum mismatch &mdash; data has been replaced with something else<br>
+                [0x0000FC] this format does not exist in any known specification<br>
+                [0x0000FB] whoever archived this is no longer responding<br>
+                [0x0000FA] do not attempt to reconstruct the original
+            </div>
+
+            <div class="ascii-art">
            ______
          /      /\
         /  ____/  \_
@@ -316,13 +213,21 @@
   ||       |   |   |
   ||       |   |   |
   ||       |___|___|
-
   ~ A monument to things that no longer load ~
-                </div>
-
-                <a href="index.html" class="back-link">cd ../index.html</a>
             </div>
+
+            <a href="index.html" class="back-link">&lt;&lt; back to index</a>
         </div>
     </div>
+
+    <hr>
+
+    <div style="text-align: center; padding: 10px; font-size: 0.7rem; color: #444444; font-family: 'Courier New', monospace;">
+        //FORGOTTEN.TECH // NO MIRRORS // DATA MAY BE CORRUPTED
+    </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
