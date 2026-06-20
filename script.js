@@ -118,7 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "CLICK HERE TO DIE", body: "just kidding lol<br><br>but seriously click here<br><br><span style='font-size:0.8rem;color:#666;'>this ad knows what you did</span>", link: "#" },
         { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#cc6600;font-size:1.5rem;font-weight:bold;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#006600;font-weight:bold;'>CLICK TO CLAIM →</span>", link: "#" },
         { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
-        { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" }
+        { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" },
+        { title: "IMAGE RENDER ERROR", body: "ERROR: Cannot read \"image.png\"<br><br><span style='color:#888888;font-size:0.75rem;'>this model does not support image input</span><br><br>the file exists. the file is there.<br>you just cannot see it.<br>maybe it never wanted to be seen.", link: "#" }
     ];
 
     function spawnAd() {
