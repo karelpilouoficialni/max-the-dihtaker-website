@@ -80,15 +80,14 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(overlay);
     }
 
-    setTimeout(showErrorPopup, 10000);
+    let errorTimeout = setTimeout(showErrorPopup, 10000);
     let popupInterval = setInterval(showErrorPopup, 180000);
 
     window.__forget = function() {
+        clearTimeout(errorTimeout);
         clearInterval(popupInterval);
         clearInterval(adInterval);
-        const existing = document.querySelector('.error-popup-overlay');
-        if (existing) existing.remove();
-        document.querySelectorAll('.popup-ad').forEach(a => a.remove());
+        document.querySelectorAll('.error-popup-overlay, .popup-ad').forEach(a => a.remove());
         console.log('%c[system] error handler silenced.', 'color: #5a8a5a; font-style: italic;');
     };
 
