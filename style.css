@@ -8,7 +8,7 @@
 body, html {
     height: 100%;
     background-color: #051005; /* Dark fallback */
-    background-image: url('background-texture.jpg');
+    background-image: url('imgs/background-texture.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
