@@ -2,13 +2,28 @@ document.addEventListener("DOMContentLoaded", () => {
     // Random date between Unix epoch and Y2K38 on every refresh
     const dateBox = document.querySelector('.date-box');
     if (dateBox) {
-        const min = 0;
-        const max = 2147483647;
-        const randomTimestamp = Math.floor(Math.random() * (max - min + 1)) + min;
-        const date = new Date(randomTimestamp * 1000);
+        const dates = [
+            0, 31536000, 63072000, 94668400,
+            315532800, 631152000, 946684800,
+            978307200, 1009843200, 1041379200,
+            1072915200, 1136073600, 1199145600,
+            1230768000, 1262304000, 1293840000,
+            1325376000, 1356998400, 1388534400,
+            1420070400, 1451606400, 1483228800,
+            1514764800, 1546300800, 1577836800,
+            1609459200, 1640995200, 1672531200,
+            1704067200, 1735689600, 1767225600,
+            1798761600, 1830297600, 1861920000,
+            1893456000, 1924992000, 1956528000,
+            1988064000, 2019686400, 2051222400,
+            2082758400, 2114294400, 2145916800,
+            2147483647
+        ];
+        const ts = dates[Math.floor(Math.random() * dates.length)];
+        const date = new Date(ts * 1000);
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
         dateBox.textContent = date.toLocaleDateString('en-US', options);
-        if (randomTimestamp === 0 || randomTimestamp === 2147483647) {
+        if (ts === 0 || ts === 2147483647) {
             dateBox.style.color = '#d63333';
         }
     }
