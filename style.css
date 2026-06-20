@@ -141,6 +141,33 @@ body, html {
     filter: contrast(1.1) brightness(0.9);
 }
 
+.entry-2-body {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.entry-2-body .text-block {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.entry-2-image-wrapper {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: flex-start;
+}
+
+.entry-2-image {
+    width: 100%;
+    height: auto;
+    max-height: 130px;
+    object-fit: contain;
+    filter: contrast(1.2) brightness(0.8);
+    border: 1px solid #2a3a2a;
+}
+
 .footer-links {
     margin-top: 10px;
 }

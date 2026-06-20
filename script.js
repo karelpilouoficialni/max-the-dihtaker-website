@@ -135,6 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }, 150);
 
+    // Console red herring
+    setTimeout(() => {
+        console.error(
+            '%c⛔ UNCAUGHT EXCEPTION',
+            'color: #ff4444; font-weight: bold; font-size: 14px;',
+            '\nTypeError: Cannot read properties of null (reading \'query\')\n    at HTMLDocument.<anonymous> (script.js:1)\n    at e (bundle:2)'
+        );
+    }, 500);
+
     // 3. Error popup every 60 seconds
     const errorMessages = [
         "SYSTEM ERROR: Memory corruption at 0xDEADBEEF",
@@ -183,6 +192,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(overlay);
     }
 
-    setTimeout(showErrorPopup, 10000);
-    setInterval(showErrorPopup, 60000);
+    let popupInterval = setInterval(showErrorPopup, 60000);
+
+    // Secret console override: type __forget() in the console
+    window.__forget = function() {
+        clearInterval(popupInterval);
+        const existing = document.querySelector('.error-popup-overlay');
+        if (existing) existing.remove();
+        console.log('%c[system] error handler silenced.', 'color: #5a8a5a; font-style: italic;');
+    };
 });
