@@ -118,7 +118,31 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "CLICK HERE TO DIE", body: "just kidding lol<br><br>but seriously click here<br><br><span style='font-size:0.8rem;color:#666;'>this ad knows what you did</span>", link: "#" },
         { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#cc6600;font-size:1.5rem;font-weight:bold;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#006600;font-weight:bold;'>CLICK TO CLAIM →</span>", link: "#" },
         { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
-        { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" }
+        { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" },
+        { title: "HOT WOMEN IN YOUR AREA", wide: true, body: `
+            <div style="background:linear-gradient(180deg,#ffccff,#ff99cc);padding:16px;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:bold;color:#000000;margin-bottom:12px;">
+                    HOT <span style="color:#ff0066;">WOMEN</span> IN YOUR AREA
+                </div>
+                <div style="display:flex;justify-content:center;gap:10px;margin-bottom:14px;">
+                    <div style="text-align:center;">
+                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#ff99cc,#cc6699);border:2px ridge #ff66aa;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Ashley, 24</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#ffcc99,#cc9966);border:2px ridge #ffaa66;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Becky, 22</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#99ccff,#6699cc);border:2px ridge #66aaff;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Stacey, 20</div>
+                    </div>
+                </div>
+                <div style="background:linear-gradient(180deg,#ff0066,#cc0044);border:2px outset #ff3377;padding:8px 24px;color:#ffffff;font-weight:bold;font-size:1rem;text-transform:uppercase;letter-spacing:2px;display:inline-block;cursor:pointer;">
+                    JOIN NOW
+                </div>
+            </div>
+        `, link: "#" }
     ];
 
     function spawnAd() {
@@ -131,7 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const wrapper = document.createElement('div');
         wrapper.className = 'popup-ad';
-        wrapper.style.cssText = `position:fixed;left:${left}vw;top:${top}vh;z-index:9997;max-width:320px;font-family:"Times New Roman",serif;`;
+        const maxW = ad.wide ? '500px' : '320px';
+        wrapper.style.cssText = `position:fixed;left:${left}vw;top:${top}vh;z-index:9997;max-width:${maxW};font-family:"Times New Roman",serif;`;
 
         const bar = document.createElement('div');
         bar.style.cssText = `background:linear-gradient(90deg,#000088,#0000cc,#000088);color:#ffffff;padding:4px 8px;font-size:0.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px;border:2px ridge #4444aa;border-bottom:none;display:flex;justify-content:space-between;align-items:center;cursor:move;`;
@@ -150,11 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const bodyDiv = document.createElement('div');
         bodyDiv.style.cssText = `background:#ffffff;border:2px ridge #888888;border-top:none;padding:12px;font-size:0.85rem;color:#000000;text-align:center;`;
 
-        const blink = document.createElement('blink');
-        blink.style.cssText = `display:block;margin-bottom:8px;font-size:0.7rem;color:#ff0000;font-weight:bold;`;
-        blink.textContent = '✦ SPONSORED CONTENT ✦';
-
-        bodyDiv.innerHTML = blink.outerHTML + ad.body;
+        let bodyHtml = '';
+        if (!ad.wide) {
+            bodyHtml += '<div style="display:block;margin-bottom:8px;font-size:0.7rem;color:#ff0000;font-weight:bold;">✦ SPONSORED CONTENT ✦</div>';
+        }
+        bodyHtml += ad.body;
+        bodyDiv.innerHTML = bodyHtml;
 
         const adLink = document.createElement('a');
         adLink.href = ad.link;
@@ -171,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.body.appendChild(confirmOverlay);
         };
 
-        bodyDiv.appendChild(adLink);
+        if (!ad.wide) bodyDiv.appendChild(adLink);
         wrapper.appendChild(bar);
         wrapper.appendChild(bodyDiv);
         document.body.appendChild(wrapper);
