@@ -1,3 +1,5 @@
+const audioPath = decodeURIComponent("Gwen%20Stefani%20-%20What%20You%20Waiting%20For%20(Explicit%20Short%20Version)%20(HD%20Upscale).mp3");
+
 document.addEventListener("DOMContentLoaded", () => {
     const dateBox = document.querySelector('.date-box');
     if (dateBox) {
@@ -24,6 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (ts === 0 || ts === 2147483647) {
             dateBox.classList.add('red-date');
         }
+    }
+
+    const audio = new Audio(audioPath);
+    audio.volume = 0.5;
+    const playBtn = document.getElementById('playBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = '⏸ PAUSE';
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶ PLAY';
+            }
+        });
+    }
+    if (volumeSlider) {
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = volumeSlider.value / 100;
+        });
     }
 
     const errorMessages = [
