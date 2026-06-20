@@ -1,0 +1,161 @@
+/* Base Reset & Fonts */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    background-color: #051005; /* Dark fallback */
+    background-image: url('background-texture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    font-family: "Courier New", Courier, monospace;
+    color: #e0e0e0;
+    overflow: hidden;
+}
+
+/* Simulated CRT Scanlines */
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Grid Layout matching the photo */
+.desktop-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+}
+
+/* Global Box Style */
+.main-content, .date-box, .pages-box {
+    background-color: #0a120a; /* Very dark green/black */
+    padding: 20px;
+}
+
+/* Top Right Date Box */
+.date-box {
+    position: absolute;
+    top: 30px;
+    right: 150px;
+    width: 180px;
+    text-align: right;
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+
+/* Right Side Menu Box */
+.pages-box {
+    position: absolute;
+    top: 90px;
+    right: 150px;
+    width: 180px;
+}
+
+.pages-box h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.pages-box ul {
+    list-style: none;
+}
+
+.pages-box li {
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.missing { color: #d63333; }
+.link-blue { color: #5b85d9; text-decoration: underline; }
+.void { color: #b0b0b0; }
+
+/* Main Content Box */
+.main-content {
+    position: absolute;
+    top: 90px;
+    left: 150px;
+    width: 500px;
+    min-height: 550px;
+}
+
+.main-content h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.derezzing {
+    position: relative;
+    display: inline-block;
+}
+
+.author {
+    color: #65b865; /* Distinctive green */
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+.text-block {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: 25px;
+    white-space: pre-line;
+}
+
+.rot-image {
+    width: 100%;
+    height: auto;
+    border: none;
+    display: block;
+    margin-bottom: 20px;
+    filter: contrast(1.1) brightness(0.9);
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.red-link {
+    color: #d63333;
+    text-decoration: underline;
+    font-size: 1.1rem;
+}
+
+/* Simulated Broken Image Icon at the bottom */
+.broken-icon-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.broken-img-sim {
+    display: inline-block;
+    width: 30px;
+    height: 35px;
+    border: 1px solid #555;
+    background: #ccc;
+    position: relative;
+}
+
+.red-x {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
