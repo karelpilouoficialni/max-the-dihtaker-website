@@ -45,6 +45,10 @@ body, html {
     padding: 20px;
 }
 
+.date-box.red-date {
+    color: #d63333 !important;
+}
+
 /* Top section with date and pages */
 .top-section {
     display: flex;
