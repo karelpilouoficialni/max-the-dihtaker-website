@@ -17,8 +17,9 @@ body, html {
 body {
     background-color: #000000;
     background-image: url('imgs/image.png');
-    background-repeat: repeat;
-    background-size: 80px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 a {
