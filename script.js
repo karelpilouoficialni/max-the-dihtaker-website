@@ -119,26 +119,26 @@ document.addEventListener("DOMContentLoaded", () => {
         { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#cc6600;font-size:1.5rem;font-weight:bold;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#006600;font-weight:bold;'>CLICK TO CLAIM →</span>", link: "#" },
         { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
         { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" },
-        { title: "HOT WOMEN IN YOUR AREA", fullscreen: true, body: `
-            <div style="padding:40px;text-align:center;">
-                <div style="font-size:2rem;font-weight:bold;color:#ffffff;margin-bottom:20px;text-shadow:2px 2px 4px rgba(0,0,0,0.5);">
-                    HOT <span style="color:#ff66aa;">WOMEN</span> IN YOUR AREA
+        { title: "HOT WOMEN IN YOUR AREA", body: `
+            <div style="padding:16px;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:bold;color:#000000;margin-bottom:14px;">
+                    HOT <span style="color:#ff0066;">WOMEN</span> IN YOUR AREA
                 </div>
-                <div style="display:flex;justify-content:center;gap:30px;margin-bottom:30px;flex-wrap:wrap;">
+                <div style="display:flex;justify-content:center;gap:12px;margin-bottom:16px;">
                     <div style="text-align:center;">
-                        <img src="imgs/ashley24.jpg" style="width:120px;height:120px;border:3px ridge #ff88bb;margin:0 auto 10px;display:block;object-fit:cover;">
-                        <div style="font-weight:bold;color:#ffffff;font-size:1.1rem;">Ashley, 24</div>
+                        <img src="imgs/ashley24.jpg" style="width:80px;height:80px;border:2px ridge #ff88bb;margin:0 auto 6px;display:block;object-fit:cover;">
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Ashley, 24</div>
                     </div>
                     <div style="text-align:center;">
-                        <img src="imgs/becky22.jpg" style="width:120px;height:120px;border:3px ridge #ffaa66;margin:0 auto 10px;display:block;object-fit:cover;">
-                        <div style="font-weight:bold;color:#ffffff;font-size:1.1rem;">Becky, 22</div>
+                        <img src="imgs/becky22.jpg" style="width:80px;height:80px;border:2px ridge #ffaa66;margin:0 auto 6px;display:block;object-fit:cover;">
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Becky, 22</div>
                     </div>
                     <div style="text-align:center;">
-                        <img src="imgs/stacey20.jpg" style="width:120px;height:120px;border:3px ridge #66aaff;margin:0 auto 10px;display:block;object-fit:cover;">
-                        <div style="font-weight:bold;color:#ffffff;font-size:1.1rem;">Stacey, 20</div>
+                        <img src="imgs/stacey20.jpg" style="width:80px;height:80px;border:2px ridge #66aaff;margin:0 auto 6px;display:block;object-fit:cover;">
+                        <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Stacey, 20</div>
                     </div>
                 </div>
-                <div style="background:linear-gradient(180deg,#ff3377,#cc0044);border:3px outset #ff6699;padding:12px 48px;color:#ffffff;font-weight:bold;font-size:1.3rem;text-transform:uppercase;letter-spacing:3px;display:inline-block;cursor:pointer;box-shadow:0 0 20px rgba(255,0,100,0.4);">
+                <div style="background:linear-gradient(180deg,#ff3377,#cc0044);border:2px outset #ff6699;padding:8px 32px;color:#ffffff;font-weight:bold;font-size:0.95rem;text-transform:uppercase;letter-spacing:2px;display:inline-block;cursor:pointer;">
                     JOIN NOW
                 </div>
             </div>
@@ -150,32 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (existingOverlay) return;
 
         const ad = ads[Math.floor(Math.random() * ads.length)];
-
-        if (ad.fullscreen) {
-            const fsWrapper = document.createElement('div');
-            fsWrapper.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);z-index:9997;display:flex;align-items:center;justify-content:center;font-family:"Times New Roman",serif;`;
-
-            const fsClose = document.createElement('span');
-            fsClose.textContent = '✕';
-            fsClose.style.cssText = `position:absolute;top:16px;right:20px;font-size:1.8rem;color:#ff6666;cursor:pointer;font-weight:bold;z-index:9998;`;
-            fsClose.onclick = () => fsWrapper.remove();
-
-            const fsBody = document.createElement('div');
-            fsBody.style.cssText = `position:relative;max-width:80vw;`;
-            fsBody.innerHTML = ad.body;
-
-            const fsLink = document.createElement('a');
-            fsLink.style.cssText = `display:block;margin-top:20px;color:#8888ff;font-size:0.85rem;text-align:center;text-decoration:underline;cursor:pointer;`;
-            fsLink.textContent = 'CLICK HERE';
-            fsLink.onclick = (e) => { e.preventDefault(); fsWrapper.remove(); };
-
-            fsBody.appendChild(fsLink);
-            fsWrapper.appendChild(fsClose);
-            fsWrapper.appendChild(fsBody);
-            document.body.appendChild(fsWrapper);
-            return;
-        }
-
         const left = 10 + Math.random() * 60;
         const top = 5 + Math.random() * 50;
 
