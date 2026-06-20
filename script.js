@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     setTimeout(showErrorPopup, 10000);
-    let popupInterval = setInterval(showErrorPopup, 60000);
+    let popupInterval = setInterval(showErrorPopup, 180000);
 
     window.__forget = function() {
         clearInterval(popupInterval);
