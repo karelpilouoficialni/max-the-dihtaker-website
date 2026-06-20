@@ -110,13 +110,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const ads = [
         { title: "FREE RAM DOWNLOAD", body: "⚠ YOUR COMPUTER IS RUNNING LOW ON MEMORY!<br>Click here to download 512MB FREE RAM!<br><br><span style='color:#ff0000;font-weight:bold;'>ONLY 2 DOWNLOADS LEFT!</span>", link: "#" },
-        { title: "YOU ARE VISITOR #0!", body: "Congratulations! You are the <b>0th</b> visitor!<br><br>Click here to claim your FREE PRIZE!<br><span style='color:#ffcc00;'>★ PRIZE MAY NOT EXIST ★</span>", link: "#" },
+        { title: "YOU ARE VISITOR #0!", body: "Congratulations! You are the <b>0th</b> visitor!<br><br>Click here to claim your FREE PRIZE!<br><span style='color:#cc6600;'>★ PRIZE MAY NOT EXIST ★</span>", link: "#" },
         { title: "HOT BYTES IN YOUR AREA", body: "Single .exe files near YOU want to connect!<br><br>✓ No strings attached<br>✓ 100% malware<br>✓ Your IP is already visible<br><br><a href='#' style='color:#0000ff;'>Click to meet them now!</a>", link: "#" },
         { title: "FREE AOL 2000 HOURS!", body: "Get 2000 FREE hours of AOL!<br>No dialup required!<br><br><img src='imgs/image.png' style='width:40px;height:40px;float:left;margin-right:8px;border:2px ridge #888;'>America Online 2000 Edition<br>Now with 56K support!<br><br><b style='color:#00ff00;'>CLICK HERE TO INSTALL</b>", link: "#" },
-        { title: "YOUR COMPUTER HAS VIRUS!", body: "⚠ WARNING: 147 viruses detected!<br>⚠ WARNING: Your IP: 127.0.0.1<br>⚠ WARNING: All data will be deleted!<br><br><span style='color:#00ff00;font-size:1.1rem;'>DOWNLOAD ANTIVIRUS NOW →</span><br><br><small>this is not a scam. this is real. we are worried about you.</small>", link: "#" },
-        { title: "MAKE MONEY FROM HOME!!!", body: "Earn $9,999/hr working from your Compaq!<br><br>✓ No experience needed<br>✓ No internet required<br>✓ Just send us your social security number<br><br><b style='color:#ffff00;'>START TODAY!!!</b>", link: "#" },
+        { title: "YOUR COMPUTER HAS VIRUS!", body: "⚠ WARNING: 147 viruses detected!<br>⚠ WARNING: Your IP: 127.0.0.1<br>⚠ WARNING: All data will be deleted!<br><br><span style='color:#cc0000;font-size:1.1rem;font-weight:bold;'>DOWNLOAD ANTIVIRUS NOW →</span><br><br><small>this is not a scam. this is real. we are worried about you.</small>", link: "#" },
+        { title: "MAKE MONEY FROM HOME!!!", body: "Earn $9,999/hr working from your Compaq!<br><br>✓ No experience needed<br>✓ No internet required<br>✓ Just send us your social security number<br><br><b style='color:#cc6600;'>START TODAY!!!</b>", link: "#" },
         { title: "CLICK HERE TO DIE", body: "just kidding lol<br><br>but seriously click here<br><br><span style='font-size:0.8rem;color:#666;'>this ad knows what you did</span>", link: "#" },
-        { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#ffcc00;font-size:1.5rem;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#00ff00;'>CLICK TO CLAIM →</span>", link: "#" },
+        { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#cc6600;font-size:1.5rem;font-weight:bold;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#006600;font-weight:bold;'>CLICK TO CLAIM →</span>", link: "#" },
         { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
         { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" }
     ];
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         bar.appendChild(closeBtn);
 
         const bodyDiv = document.createElement('div');
-        bodyDiv.style.cssText = `background:linear-gradient(180deg,#ffffcc,#ffffaa);border:2px ridge #888888;border-top:none;padding:12px;font-size:0.85rem;color:#000000;text-align:center;`;
+        bodyDiv.style.cssText = `background:#ffffff;border:2px ridge #888888;border-top:none;padding:12px;font-size:0.85rem;color:#000000;text-align:center;`;
 
         const blink = document.createElement('blink');
         blink.style.cssText = `display:block;margin-bottom:8px;font-size:0.7rem;color:#ff0000;font-weight:bold;`;
