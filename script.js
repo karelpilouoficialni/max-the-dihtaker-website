@@ -175,8 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
         wrapper.appendChild(bar);
         wrapper.appendChild(bodyDiv);
         document.body.appendChild(wrapper);
-
-        setTimeout(() => { if (wrapper.parentNode) wrapper.remove(); }, 12000);
     }
 
     const adInterval = setInterval(() => {
