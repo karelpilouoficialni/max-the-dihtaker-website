@@ -126,15 +126,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
                 <div style="display:flex;justify-content:center;gap:10px;margin-bottom:14px;">
                     <div style="text-align:center;">
-                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#ff99cc,#cc6699);border:2px ridge #ff66aa;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <img src="imgs/ashley24.jpg" style="width:70px;height:70px;border:2px ridge #ff66aa;margin:0 auto 6px;display:block;object-fit:cover;">
                         <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Ashley, 24</div>
                     </div>
                     <div style="text-align:center;">
-                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#ffcc99,#cc9966);border:2px ridge #ffaa66;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <img src="imgs/becky22.jpg" style="width:70px;height:70px;border:2px ridge #ffaa66;margin:0 auto 6px;display:block;object-fit:cover;">
                         <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Becky, 22</div>
                     </div>
                     <div style="text-align:center;">
-                        <div style="width:70px;height:70px;background:linear-gradient(135deg,#99ccff,#6699cc);border:2px ridge #66aaff;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👩</div>
+                        <img src="imgs/stacey20.jpg" style="width:70px;height:70px;border:2px ridge #66aaff;margin:0 auto 6px;display:block;object-fit:cover;">
                         <div style="font-weight:bold;color:#000000;font-size:0.8rem;">Stacey, 20</div>
                     </div>
                 </div>
