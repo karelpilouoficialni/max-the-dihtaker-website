@@ -164,6 +164,26 @@
             margin: 16px 0;
             white-space: pre;
         }
+
+        @media (max-width: 1024px) {
+            .tech-container { padding: 30px 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .tech-container { padding: 20px; }
+            .term-body { padding: 16px; }
+            .dir-item { flex-wrap: wrap; gap: 4px; }
+            .dir-perms { width: auto; }
+            .dir-size { width: auto; }
+            .dir-date { width: auto; }
+            .ascii-art { font-size: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .tech-container { padding: 10px; }
+            .term-body { padding: 12px; font-size: 0.85rem; }
+            .dir-item { font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
