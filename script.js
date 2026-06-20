@@ -158,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const adLink = document.createElement('a');
         adLink.href = ad.link;
-        adLink.style.cssText = `display:block;margin-top:10px;padding:6px;background:linear-gradient(180deg,#ffcc00,#ff9900);border:2px outset #cc8800;color:#000000;font-weight:bold;font-size:0.8rem;text-align:center;text-decoration:none;font-family:Arial,sans-serif;cursor:pointer;`;
+        adLink.style.cssText = `display:block;margin-top:10px;color:#0000ff;font-weight:bold;font-size:0.85rem;text-align:center;text-decoration:underline;cursor:pointer;font-family:"Times New Roman",serif;`;
         adLink.textContent = 'CLICK HERE';
         adLink.onclick = (e) => {
             e.preventDefault();
