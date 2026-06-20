@@ -38,12 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
         "FATAL: Sector not found - 0x00000000",
         "WARNING: Unstable pixel matrix detected",
         "CRITICAL: Display driver has stopped responding",
-        "ERROR: Invalid page fault in non-paged area",
-        "SYSTEM CRASH: Derezzing process failed",
-        "KERNEL PANIC: Unable to mount root filesystem",
+        "ERROR: Can't find the file 'reality.sys'",
+        "SYSTEM CRASH: The universe has stopped working",
+        "KERNEL PANIC: Unable to find soul",
         "SEGFAULT: The void is leaking into address space",
         "HALT: Stack overflow at 0xFFF0",
-        "ABORT: CRC mismatch - data corruption detected"
+        "uh oh! data corruption detected!"
     ];
 
     function showErrorPopup() {
