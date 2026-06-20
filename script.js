@@ -78,8 +78,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.__forget = function() {
         clearInterval(popupInterval);
+        clearInterval(adInterval);
         const existing = document.querySelector('.error-popup-overlay');
         if (existing) existing.remove();
+        document.querySelectorAll('.popup-ad').forEach(a => a.remove());
         console.log('%c[system] error handler silenced.', 'color: #5a8a5a; font-style: italic;');
     };
+
+    // --- POPUP ADS ---
+    const ads = [
+        { title: "FREE RAM DOWNLOAD", body: "⚠ YOUR COMPUTER IS RUNNING LOW ON MEMORY!<br>Click here to download 512MB FREE RAM!<br><br><span style='color:#ff0000;font-weight:bold;'>ONLY 2 DOWNLOADS LEFT!</span>", link: "#" },
+        { title: "YOU ARE VISITOR #0!", body: "Congratulations! You are the <b>0th</b> visitor!<br><br>Click here to claim your FREE PRIZE!<br><span style='color:#ffcc00;'>★ PRIZE MAY NOT EXIST ★</span>", link: "#" },
+        { title: "HOT BYTES IN YOUR AREA", body: "Single .exe files near YOU want to connect!<br><br>✓ No strings attached<br>✓ 100% malware<br>✓ Your IP is already visible<br><br><a href='#' style='color:#0000ff;'>Click to meet them now!</a>", link: "#" },
+        { title: "FREE AOL 2000 HOURS!", body: "Get 2000 FREE hours of AOL!<br>No dialup required!<br><br><img src='imgs/image.png' style='width:40px;height:40px;float:left;margin-right:8px;border:2px ridge #888;'>America Online 2000 Edition<br>Now with 56K support!<br><br><b style='color:#00ff00;'>CLICK HERE TO INSTALL</b>", link: "#" },
+        { title: "YOUR COMPUTER HAS VIRUS!", body: "⚠ WARNING: 147 viruses detected!<br>⚠ WARNING: Your IP: 127.0.0.1<br>⚠ WARNING: All data will be deleted!<br><br><span style='color:#00ff00;font-size:1.1rem;'>DOWNLOAD ANTIVIRUS NOW →</span><br><br><small>this is not a scam. this is real. we are worried about you.</small>", link: "#" },
+        { title: "MAKE MONEY FROM HOME!!!", body: "Earn $9,999/hr working from your Compaq!<br><br>✓ No experience needed<br>✓ No internet required<br>✓ Just send us your social security number<br><br><b style='color:#ffff00;'>START TODAY!!!</b>", link: "#" },
+        { title: "CLICK HERE TO DIE", body: "just kidding lol<br><br>but seriously click here<br><br><span style='font-size:0.8rem;color:#666;'>this ad knows what you did</span>", link: "#" },
+        { title: "FREE IPHONE 1!", body: "You are the 999,999,999th visitor!<br><br><span style='color:#ffcc00;font-size:1.5rem;'>★ YOU WIN ★</span><br><br>Claim your free iPhone 1 (2007 edition)<br>Battery may be dead. Screen may be cracked.<br>Phone may not exist.<br><br><span style='color:#00ff00;'>CLICK TO CLAIM →</span>", link: "#" },
+        { title: "ARE YOU A ROBOT?", body: "Prove you are not a robot:<br><br><span style='font-size:2rem;'>🐧 ☂ ★ ∇</span><br><br>Click all squares containing<br>a soul. [0/0] correct.", link: "#" },
+        { title: "NUDES", body: "________________________________<br><br>just kidding it's just another ad<br>for something you don't need<br><br>but you already clicked didn't you", link: "#" }
+    ];
+
+    function spawnAd() {
+        const existingOverlay = document.querySelector('.error-popup-overlay');
+        if (existingOverlay) return;
+
+        const ad = ads[Math.floor(Math.random() * ads.length)];
+        const left = 10 + Math.random() * 60;
+        const top = 5 + Math.random() * 50;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'popup-ad';
+        wrapper.style.cssText = `position:fixed;left:${left}vw;top:${top}vh;z-index:9997;max-width:320px;font-family:"Times New Roman",serif;`;
+
+        const bar = document.createElement('div');
+        bar.style.cssText = `background:linear-gradient(90deg,#000088,#0000cc,#000088);color:#ffffff;padding:4px 8px;font-size:0.75rem;font-weight:bold;text-transform:uppercase;letter-spacing:1px;border:2px ridge #4444aa;border-bottom:none;display:flex;justify-content:space-between;align-items:center;cursor:move;`;
+
+        const barText = document.createElement('span');
+        barText.textContent = ad.title.substring(0, 20);
+
+        const closeBtn = document.createElement('span');
+        closeBtn.textContent = '✕';
+        closeBtn.style.cssText = `cursor:pointer;color:#ff6666;font-weight:bold;font-size:0.9rem;padding:0 4px;`;
+        closeBtn.onclick = () => wrapper.remove();
+
+        bar.appendChild(barText);
+        bar.appendChild(closeBtn);
+
+        const bodyDiv = document.createElement('div');
+        bodyDiv.style.cssText = `background:linear-gradient(180deg,#ffffcc,#ffffaa);border:2px ridge #888888;border-top:none;padding:12px;font-size:0.85rem;color:#000000;text-align:center;`;
+
+        const blink = document.createElement('blink');
+        blink.style.cssText = `display:block;margin-bottom:8px;font-size:0.7rem;color:#ff0000;font-weight:bold;`;
+        blink.textContent = '✦ SPONSORED CONTENT ✦';
+
+        bodyDiv.innerHTML = blink.outerHTML + ad.body;
+
+        const adLink = document.createElement('a');
+        adLink.href = ad.link;
+        adLink.style.cssText = `display:block;margin-top:10px;padding:6px;background:linear-gradient(180deg,#ffcc00,#ff9900);border:2px outset #cc8800;color:#000000;font-weight:bold;font-size:0.8rem;text-align:center;text-decoration:none;font-family:Arial,sans-serif;cursor:pointer;`;
+        adLink.textContent = 'CLICK HERE';
+        adLink.onclick = (e) => {
+            e.preventDefault();
+            const confirmOverlay = document.createElement('div');
+            confirmOverlay.style.cssText = `position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center;font-family:"Times New Roman",serif;`;
+            const confirmBox = document.createElement('div');
+            confirmBox.style.cssText = `background:linear-gradient(180deg,#2a2a2a,#0a0a0a);border:3px ridge #666;padding:20px;text-align:center;max-width:350px;color:#ffffff;`;
+            confirmBox.innerHTML = `<div style="font-size:2rem;margin-bottom:10px;">🚫</div><p style="margin-bottom:14px;">This page cannot be displayed.<br>The link has been dead since 2004.</p><button onclick="this.parentElement.parentElement.remove()" style="padding:4px 20px;background:linear-gradient(180deg,#444,#222);border:2px outset #666;color:#fff;cursor:pointer;font-family:'Courier New',monospace;">OK</button>`;
+            confirmOverlay.appendChild(confirmBox);
+            document.body.appendChild(confirmOverlay);
+        };
+
+        bodyDiv.appendChild(adLink);
+        wrapper.appendChild(bar);
+        wrapper.appendChild(bodyDiv);
+        document.body.appendChild(wrapper);
+
+        setTimeout(() => { if (wrapper.parentNode) wrapper.remove(); }, 12000);
+    }
+
+    const adInterval = setInterval(() => {
+        if (Math.random() > 0.3) spawnAd();
+    }, 18000);
+
+    setTimeout(spawnAd, 3000);
 });
