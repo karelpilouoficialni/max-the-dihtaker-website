@@ -16,8 +16,9 @@ body, html {
 
 body {
     background-color: #000000;
-    background-image: url('imgs/dritftinginspace.png'), linear-gradient(135deg, #000000 0%, #0a000a 50%, #000500 100%);
-    background-blend-mode: overlay;
+    background-image: url('imgs/meat.jpg');
+    background-repeat: repeat;
+    background-size: 80px;
 }
 
 a {
