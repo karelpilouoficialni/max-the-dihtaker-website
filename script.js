@@ -2,7 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const audio = new Audio('ambience.wav');
     audio.loop = true;
     audio.volume = 0.3;
-    audio.play();
+    const tryPlay = () => { audio.play().catch(() => {}); };
+    tryPlay();
+    document.addEventListener('click', tryPlay, { once: true });
 
     const dateBox = document.querySelector('.date-box');
     if (dateBox) {
