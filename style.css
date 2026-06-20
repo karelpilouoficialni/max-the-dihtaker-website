@@ -264,57 +264,6 @@ hr {
     margin: 16px 0;
 }
 
-.music-player {
-    background: linear-gradient(90deg, #1a0033, #330066, #1a0033);
-    border: 2px ridge #663399;
-    padding: 6px 12px;
-    margin: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: "Courier New", monospace;
-    font-size: 0.8rem;
-}
-
-.player-label {
-    color: #ff66cc;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    flex-shrink: 0;
-}
-
-.player-btn {
-    background: linear-gradient(180deg, #663399, #330066);
-    border: 2px outset #8844aa;
-    color: #ffccff;
-    padding: 3px 14px;
-    font-family: "Courier New", monospace;
-    font-size: 0.75rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.player-btn:active {
-    border-style: inset;
-}
-
-.player-volume {
-    width: 100px;
-    height: 14px;
-    accent-color: #ff66cc;
-    cursor: pointer;
-}
-
-.player-vol-label {
-    color: #aa66cc;
-    font-size: 0.7rem;
-    font-weight: bold;
-    flex-shrink: 0;
-}
-
 .marquee {
     background: #000033;
     border: 2px ridge #333399;
