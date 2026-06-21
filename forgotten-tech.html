@@ -1,405 +1,635 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>/FORGOTTEN.TECH</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <style>
-        body {
-            background-image: none;
-            background: linear-gradient(180deg, #000000 0%, #0a0005 30%, #000a00 60%, #000000 100%);
-        }
+      body {
+        background-image: none;
+        background: linear-gradient(
+          180deg,
+          #000000 0%,
+          #0a0005 30%,
+          #000a00 60%,
+          #000000 100%
+        );
+      }
 
-        .terminal-window {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 0 10px;
-        }
+      .terminal-window {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 10px;
+      }
 
-        .term-header {
-            background: linear-gradient(90deg, #000044, #000088, #000044);
-            border: 2px ridge #444488;
-            padding: 6px 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: #aaaaff;
-            font-family: "Courier New", monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+      .term-header {
+        background: linear-gradient(90deg, #000044, #000088, #000044);
+        border: 2px ridge #444488;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #aaaaff;
+        font-family: "Courier New", monospace;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
 
+      .term-body {
+        background: linear-gradient(180deg, #0a0a1a 0%, #000005 100%);
+        border: 2px ridge #333366;
+        border-top: none;
+        padding: 16px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+        color: #cccccc;
+      }
+
+      .prompt-line {
+        color: #00ff00;
+        margin-bottom: 12px;
+      }
+
+      .prompt-line .path {
+        color: #8888ff;
+      }
+
+      .prompt-line .cursor {
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .output-text {
+        color: #ffcc00;
+        margin: 12px 0;
+        padding: 10px;
+        background: #000011;
+        border-left: 3px solid #ff0000;
+        font-size: 0.85rem;
+      }
+
+      .output-text.error {
+        color: #ff4444;
+        border-left-color: #ffff00;
+      }
+
+      .dir-listing {
+        margin: 16px 0;
+        background: #000011;
+        border: 1px inset #333355;
+        padding: 8px;
+      }
+
+      .dir-item {
+        display: flex;
+        gap: 12px;
+        padding: 3px 0;
+        font-size: 0.8rem;
+        border-bottom: 1px dotted #1a1a3a;
+      }
+
+      .dir-item:last-child {
+        border-bottom: none;
+      }
+
+      .dir-perms {
+        color: #6666aa;
+        width: 70px;
+        flex-shrink: 0;
+      }
+      .dir-size {
+        color: #888888;
+        width: 50px;
+        text-align: right;
+        flex-shrink: 0;
+      }
+      .dir-date {
+        color: #666688;
+        width: 80px;
+        flex-shrink: 0;
+      }
+      .dir-name {
+        color: #00cc00;
+      }
+      .dir-name.dead {
+        color: #cc3333;
+        text-decoration: line-through;
+      }
+      .dir-name.dir {
+        color: #8888ff;
+      }
+      .dir-name.link {
+        color: #6688ff;
+        text-decoration: underline;
+      }
+
+      .ascii-art {
+        color: #444466;
+        font-size: 0.5rem;
+        line-height: 1.1;
+        margin: 16px 0;
+        white-space: pre;
+        text-align: center;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 16px;
+        color: #8888ff;
+        font-size: 0.85rem;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px dashed #444466;
+        margin: 12px 0;
+      }
+
+      @media (max-width: 768px) {
         .term-body {
-            background: linear-gradient(180deg, #0a0a1a 0%, #000005 100%);
-            border: 2px ridge #333366;
-            border-top: none;
-            padding: 16px;
-            font-family: "Courier New", monospace;
-            font-size: 0.9rem;
-            color: #cccccc;
+          padding: 10px;
+          font-size: 0.8rem;
         }
-
-        .prompt-line {
-            color: #00ff00;
-            margin-bottom: 12px;
-        }
-
-        .prompt-line .path {
-            color: #8888ff;
-        }
-
-        .prompt-line .cursor {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        .output-text {
-            color: #ffcc00;
-            margin: 12px 0;
-            padding: 10px;
-            background: #000011;
-            border-left: 3px solid #ff0000;
-            font-size: 0.85rem;
-        }
-
-        .output-text.error {
-            color: #ff4444;
-            border-left-color: #ffff00;
-        }
-
-        .dir-listing {
-            margin: 16px 0;
-            background: #000011;
-            border: 1px inset #333355;
-            padding: 8px;
-        }
-
         .dir-item {
-            display: flex;
-            gap: 12px;
-            padding: 3px 0;
-            font-size: 0.8rem;
-            border-bottom: 1px dotted #1a1a3a;
+          flex-wrap: wrap;
+          gap: 4px;
+          font-size: 0.75rem;
         }
-
-        .dir-item:last-child {
-            border-bottom: none;
+        .dir-perms {
+          width: auto;
         }
-
-        .dir-perms { color: #6666aa; width: 70px; flex-shrink: 0; }
-        .dir-size { color: #888888; width: 50px; text-align: right; flex-shrink: 0; }
-        .dir-date { color: #666688; width: 80px; flex-shrink: 0; }
-        .dir-name { color: #00cc00; }
-        .dir-name.dead { color: #cc3333; text-decoration: line-through; }
-        .dir-name.dir { color: #8888ff; }
-        .dir-name.link { color: #6688ff; text-decoration: underline; }
-
+        .dir-size {
+          width: auto;
+        }
+        .dir-date {
+          width: auto;
+        }
         .ascii-art {
-            color: #444466;
-            font-size: 0.5rem;
-            line-height: 1.1;
-            margin: 16px 0;
-            white-space: pre;
-            text-align: center;
+          font-size: 0.35rem;
         }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 16px;
-            color: #8888ff;
-            font-size: 0.85rem;
-        }
-
-        hr {
-            border: none;
-            border-top: 1px dashed #444466;
-            margin: 12px 0;
-        }
-
-        @media (max-width: 768px) {
-            .term-body { padding: 10px; font-size: 0.8rem; }
-            .dir-item { flex-wrap: wrap; gap: 4px; font-size: 0.75rem; }
-            .dir-perms { width: auto; }
-            .dir-size { width: auto; }
-            .dir-date { width: auto; }
-            .ascii-art { font-size: 0.35rem; }
-        }
+      }
     </style>
-</head>
-<body>
-
-<div class="desktop-container">
-
-    <div class="top-section">
-        <div class="date-box" style="color: #ff4444;">SYS.ADMIN</div>
+  </head>
+  <body>
+    <div class="desktop-container">
+      <div class="top-section">
+        <div class="date-box" style="color: #ff4444">SYS.ADMIN</div>
         <div class="pages-box">
-            <h2>PAGES</h2>
-            <ul>
-                <li><a href="index.html">/index</a></li>
-                <li><span class="missing">/forgotten.tech</span></li>
-                <li><span class="void">/dev/null</span></li>
-            </ul>
+          <h2>PAGES</h2>
+          <ul>
+            <li><a href="index.html">/index</a></li>
+            <li><span class="missing">/forgotten.tech</span></li>
+            <li><span class="void">/dev/null</span></li>
+          </ul>
         </div>
-    </div>
+      </div>
 
-    <hr>
+      <hr />
 
-    <div class="terminal-window">
+      <div class="terminal-window">
         <div class="term-header">user@forgotten.tech:~/archive</div>
         <div class="term-body">
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ <span class="cursor">_</span>
+          </div>
 
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ <span class="cursor">_</span>
+          <div class="output-text">
+            ⚠ WARNING: this directory contains formats that were never meant to
+            outlive their creators.<br />
+            some files have been observed changing size when no one is
+            watching.<br />
+            a few still accept connections. do not open ports 6660-6669.<br />
+            the archive is not a backup. it is a holding cell.<br />
+            last known uptime: 3,472 days ago. last known user: [REDACTED].
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ ls -la
+          </div>
+
+          <div class="dir-listing">
+            <div class="dir-item">
+              <span class="dir-perms">drwxr-x---</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1998-04-12</span
+              ><span class="dir-name dir">./</span>
             </div>
-
-            <div class="output-text">
-                ⚠ WARNING: this directory contains formats that were never meant to outlive their creators.<br>
-                some files have been observed changing size when no one is watching.<br>
-                a few still accept connections. do not open ports 6660-6669.<br>
-                the archive is not a backup. it is a holding cell.<br>
-                last known uptime: 3,472 days ago. last known user: [REDACTED].
+            <div class="dir-item">
+              <span class="dir-perms">drwxr-x---</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1993-11-02</span
+              ><span class="dir-name dir">../</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ ls -la
+            <div class="dir-item">
+              <span class="dir-perms">drwx------</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1995-01-17</span
+              ><span class="dir-name dir">.trash/</span>
             </div>
-
-            <div class="dir-listing">
-                <div class="dir-item"><span class="dir-perms">drwxr-x---</span><span class="dir-size">--</span><span class="dir-date">1998-04-12</span><span class="dir-name dir">./</span></div>
-                <div class="dir-item"><span class="dir-perms">drwxr-x---</span><span class="dir-size">--</span><span class="dir-date">1993-11-02</span><span class="dir-name dir">../</span></div>
-                <div class="dir-item"><span class="dir-perms">drwx------</span><span class="dir-size">--</span><span class="dir-date">1995-01-17</span><span class="dir-name dir">.trash/</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.2k</span><span class="dir-date">1999-07-21</span><span class="dir-name dead">geocities_archive.tar.gz</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">1.4k</span><span class="dir-date">2001-03-08</span><span class="dir-name dead">winamp_skins_backup.zip</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">2003-11-02</span><span class="dir-name">dialup_modem_sounds.mp3</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1995-09-14</span><span class="dir-name dead">netscape_navigator_bookmarks.html</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.4k</span><span class="dir-date">2007-05-30</span><span class="dir-name">floppy_disk_controller_driver.sys</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1997-12-25</span><span class="dir-name dead">aol_instant_messenger_logs.txt</span></div>
-                <div class="dir-item"><span class="dir-perms">lrwxrwxrwx</span><span class="dir-size">--</span><span class="dir-date">1996-01-17</span><span class="dir-name link">/dev/null -> void</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">2.1k</span><span class="dir-date">2000-02-29</span><span class="dir-name dead">icq_message_history.dat</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.3k</span><span class="dir-date">2008-06-19</span><span class="dir-name">realplayer_license_agreement.txt</span></div>
-                <div class="dir-item"><span class="dir-perms">-rwxr-xr-x</span><span class="dir-size">4.2k</span><span class="dir-date">1994-10-05</span><span class="dir-name dead">macromedia_flash_player_v2.swf</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.6k</span><span class="dir-date">2002-04-01</span><span class="dir-name dead">mirc_scripts_v4.2.zip</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">2005-08-15</span><span class="dir-name">windows_xp_bliss_wallpaper.bmp</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">2006-11-11</span><span class="dir-name dead">myspace_layout_generator.html</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">2.8k</span><span class="dir-date">2009-07-22</span><span class="dir-name dead">google_reader_subscriptions.opml</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">2001-09-09</span><span class="dir-name">kazaa_download_list.dat</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">7.3k</span><span class="dir-date">1998-12-31</span><span class="dir-name dead">midi_archive_volume_3.mid</span></div>
-                <div class="dir-item"><span class="dir-perms">drwxr-x---</span><span class="dir-size">--</span><span class="dir-date">1997-06-06</span><span class="dir-name dir">./orbital_debris/</span></div>
-                <div class="dir-item"><span class="dir-perms">-rwSrwSrwT</span><span class="dir-size">0.0k</span><span class="dir-date">2004-03-28</span><span class="dir-name dead">worm.sasser.removal.tool.exe</span></div>
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.2k</span
+              ><span class="dir-date">1999-07-21</span
+              ><span class="dir-name dead">geocities_archive.tar.gz</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ ls -la ./orbital_debris/
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">1.4k</span
+              ><span class="dir-date">2001-03-08</span
+              ><span class="dir-name dead">winamp_skins_backup.zip</span>
             </div>
-
-            <div class="dir-listing">
-                <div class="dir-item"><span class="dir-perms">drwxr-x---</span><span class="dir-size">--</span><span class="dir-date">1997-06-06</span><span class="dir-name dir">./</span></div>
-                <div class="dir-item"><span class="dir-perms">drwxr-x---</span><span class="dir-size">--</span><span class="dir-date">1998-04-12</span><span class="dir-name dir">../</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.1k</span><span class="dir-date">1997-06-06</span><span class="dir-name dead">soho_satellite_telemetry.log</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.4k</span><span class="dir-date">1999-02-12</span><span class="dir-name dead">mir_space_station_audio/noise.wav</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">1.1k</span><span class="dir-date">2003-02-01</span><span class="dir-name dead">columbia_flight_data_recorder_dump.bin</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.0k</span><span class="dir-date">1970-01-01</span><span class="dir-name dead">apollo_11_original_tapes/glitch_at_18_minutes.txt</span></div>
-                <div class="dir-item"><span class="dir-perms">-rw-r--r--</span><span class="dir-size">0.2k</span><span class="dir-date">1986-01-28</span><span class="dir-name dead">challenger_o_ring_temp_log.csv</span></div>
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">2003-11-02</span
+              ><span class="dir-name">dialup_modem_sounds.mp3</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ file dialup_modem_sounds.mp3
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">1995-09-14</span
+              ><span class="dir-name dead"
+                >netscape_navigator_bookmarks.html</span
+              >
             </div>
-
-            <div class="output-text">
-                dialup_modem_sounds.mp3: MPEG ADTS, layer III, v1, 128 kbps, 44100 Hz, joint stereo<br>
-                &nbsp;&nbsp;duration: 00:03:47.12 &mdash; predicted content: handshake sequences<br>
-                &nbsp;&nbsp;note: file contains embedded timestamp [1998-10-24 03:14:15 UTC]<br>
-                &nbsp;&nbsp;note: file also contains 0.4s of what sounds like breathing @ marker 02:13:07
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.4k</span
+              ><span class="dir-date">2007-05-30</span
+              ><span class="dir-name">floppy_disk_controller_driver.sys</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ du -sh ./*
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">1997-12-25</span
+              ><span class="dir-name dead">aol_instant_messenger_logs.txt</span>
             </div>
-
-            <div class="output-text">
-                12K&nbsp;&nbsp;./geocities_archive.tar.gz<br>
-                64K&nbsp;&nbsp;./winamp_skins_backup.zip<br>
-                4.1M&nbsp;&nbsp;./dialup_modem_sounds.mp3<br>
-                8K&nbsp;&nbsp;./netscape_navigator_bookmarks.html<br>
-                24K&nbsp;&nbsp;./floppy_disk_controller_driver.sys<br>
-                4K&nbsp;&nbsp;./aol_instant_messenger_logs.txt<br>
-                128K&nbsp;&nbsp;./icq_message_history.dat<br>
-                16K&nbsp;&nbsp;./realplayer_license_agreement.txt<br>
-                4.2M&nbsp;&nbsp;./macromedia_flash_player_v2.swf<br>
-                32K&nbsp;&nbsp;./mirc_scripts_v4.2.zip<br>
-                4K&nbsp;&nbsp;./windows_xp_bliss_wallpaper.bmp<br>
-                4K&nbsp;&nbsp;./myspace_layout_generator.html<br>
-                64K&nbsp;&nbsp;./google_reader_subscriptions.opml<br>
-                4K&nbsp;&nbsp;./kazaa_download_list.dat<br>
-                256K&nbsp;&nbsp;./midi_archive_volume_3.mid<br>
-                0K&nbsp;&nbsp;./worm.sasser.removal.tool.exe<br>
-                du: cannot read './orbital_debris': permission denied
+            <div class="dir-item">
+              <span class="dir-perms">lrwxrwxrwx</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1996-01-17</span
+              ><span class="dir-name link">/dev/null -> void</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ strings ./aol_instant_messenger_logs.txt | head -20
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">2.1k</span
+              ><span class="dir-date">2000-02-29</span
+              ><span class="dir-name dead">icq_message_history.dat</span>
             </div>
-
-            <div class="output-text error">
-                strings: aol_instant_messenger_logs.txt: file too short<br>
-                &nbsp;&nbsp;but here is what is there:<br>
-                <br>
-                [22:14:01] &lt;xXx_D4RKN3SS_xXx&gt; hey u there?<br>
-                [22:14:12] &lt;xXx_D4RKN3SS_xXx&gt; my parents got me a new compaq<br>
-                [22:14:23] &lt;xXx_D4RKN3SS_xXx&gt; it has 64mb of ram lmaoo<br>
-                [22:14:24] *** xXx_D4RKN3SS_xXx has signed off ***<br>
-                [22:14:24] *** end of log ***<br>
-                <br>
-                note: user xXx_D4RKN3SS_xXx last seen 1998-03-12 around 02:00 EST<br>
-                note: no further activity recorded from this account
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.3k</span
+              ><span class="dir-date">2008-06-19</span
+              ><span class="dir-name">realplayer_license_agreement.txt</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ cat dialup_modem_sounds.mp3
+            <div class="dir-item">
+              <span class="dir-perms">-rwxr-xr-x</span
+              ><span class="dir-size">4.2k</span
+              ><span class="dir-date">1994-10-05</span
+              ><span class="dir-name dead">macromedia_flash_player_v2.swf</span>
             </div>
-
-            <div class="output-text error">
-                [0x0000FF] SYS.ERR :: unrecoverable sector at 0xBEEF<br>
-                [0x0000FE] the file remembers being deleted<br>
-                [0x0000FD] checksum mismatch &mdash; data has been replaced with something else<br>
-                [0x0000FC] this format does not exist in any known specification<br>
-                [0x0000FB] whoever archived this is no longer responding<br>
-                [0x0000FA] do not attempt to reconstruct the original<br>
-                [0x0000F9] FATAL: archive has been self-modifying since 2009<br>
-                [0x0000F8] suggest immediate disconnect from network
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.6k</span
+              ><span class="dir-date">2002-04-01</span
+              ><span class="dir-name dead">mirc_scripts_v4.2.zip</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ ping -c 3 127.0.0.1
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">2005-08-15</span
+              ><span class="dir-name">windows_xp_bliss_wallpaper.bmp</span>
             </div>
-
-            <div class="output-text error">
-                PING 127.0.0.1 (127.0.0.1): 56 data bytes<br>
-                64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.003 ms<br>
-                64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.002 ms<br>
-                64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.002 ms<br>
-                &nbsp;&nbsp;<br>
-                --- 127.0.0.1 ping statistics ---<br>
-                3 packets transmitted, 3 packets received, 0% packet loss<br>
-                &nbsp;&nbsp;<br>
-                ⚠ the interface seems to be responding from somewhere else
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">2006-11-11</span
+              ><span class="dir-name dead">myspace_layout_generator.html</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ echo $SHELL
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">2.8k</span
+              ><span class="dir-date">2009-07-22</span
+              ><span class="dir-name dead"
+                >google_reader_subscriptions.opml</span
+              >
             </div>
-
-            <div class="output-text error">
-                /bin/void<br>
-                &nbsp;&nbsp;<br>
-                ⚠ this shell does not exist in /etc/shells<br>
-                ⚠ this shell should not exist at all
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">2001-09-09</span
+              ><span class="dir-name">kazaa_download_list.dat</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ uname -a
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">7.3k</span
+              ><span class="dir-date">1998-12-31</span
+              ><span class="dir-name dead">midi_archive_volume_3.mid</span>
             </div>
-
-            <div class="output-text">
-                Linux forgotten.tech 0.0.0.null #1 SMP PREEMPT_DYNAMIC Thu Jan 1 00:00:00 UTC 1970 x86_64 GNU/Linux<br>
-                &nbsp;&nbsp;<br>
-                ⚠ time since boot: NaN seconds<br>
-                ⚠ time since last user: NaN seconds<br>
-                ⚠ you are not the first user today. you are not the first user.
+            <div class="dir-item">
+              <span class="dir-perms">drwxr-x---</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1997-06-06</span
+              ><span class="dir-name dir">./orbital_debris/</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ sudo rm -rf /
+            <div class="dir-item">
+              <span class="dir-perms">-rwSrwSrwT</span
+              ><span class="dir-size">0.0k</span
+              ><span class="dir-date">2004-03-28</span
+              ><span class="dir-name dead">worm.sasser.removal.tool.exe</span>
             </div>
+          </div>
 
-            <div class="output-text error">
-                [sudo] password for user: _<br>
-                &nbsp;&nbsp;<br>
-                ⚠ sudo: You are not in the sudoers file.<br>
-                ⚠ This incident will be reported.<br>
-                ⚠ (but there is no one left to report it to)
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ ls -la ./orbital_debris/
+          </div>
+
+          <div class="dir-listing">
+            <div class="dir-item">
+              <span class="dir-perms">drwxr-x---</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1997-06-06</span
+              ><span class="dir-name dir">./</span>
             </div>
-
-            <hr>
-
-            <div class="prompt-line">
-                <span class="path">user@forgotten.tech</span>:<span class="path">~/archive</span>$ history | tail -10
+            <div class="dir-item">
+              <span class="dir-perms">drwxr-x---</span
+              ><span class="dir-size">--</span
+              ><span class="dir-date">1998-04-12</span
+              ><span class="dir-name dir">../</span>
             </div>
-
-            <div class="output-text" style="color: #888888;">
-                &nbsp;997&nbsp;&nbsp;cat /etc/passwd | grep -v "nologin\|sync\|shutdown"<br>
-                &nbsp;998&nbsp;&nbsp;who<br>
-                &nbsp;999&nbsp;&nbsp;whoami<br>
-                &nbsp;1000&nbsp;echo "still here" >> /dev/null<br>
-                &nbsp;1001&nbsp;tail -f /var/log/syslog | grep -i "error\|warn\|fail\|dead\|halt\|corrupt"<br>
-                &nbsp;1002&nbsp;./worm.sasser.removal.tool.exe<br>
-                &nbsp;1003&nbsp;ls -la ~/archive<br>
-                &nbsp;1004&nbsp;cd ~/archive<br>
-                &nbsp;1005&nbsp;ls -la<br>
-                &nbsp;1006&nbsp;df -h /
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.1k</span
+              ><span class="dir-date">1997-06-06</span
+              ><span class="dir-name dead">soho_satellite_telemetry.log</span>
             </div>
-
-            <hr>
-
-            <div class="output-text" style="text-align: center; color: #444488; border-left-color: #444488;">
-                connection to forgotten.tech closed by remote host.<br>
-                you cannot reconnect. there is no one to accept the handshake.
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.4k</span
+              ><span class="dir-date">1999-02-12</span
+              ><span class="dir-name dead"
+                >mir_space_station_audio/noise.wav</span
+              >
             </div>
-
-            <div class="ascii-art" style="margin-top: 20px;">
-           ______
-         /      /\
-        /  ____/  \_
-       /  /   /  _/|
-      /  /___/  /  |
-     /  ________/   |
-    /  /   |   |   |
-   /  /    |   |   |
-  /  /     |   |   |
- /__/      |___|___|
-  ||       |   |   |
-  ||       |   |   |
-  ||       |   |   |
-  ||       |___|___|
-  ~ A monument to things that no longer load ~
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">1.1k</span
+              ><span class="dir-date">2003-02-01</span
+              ><span class="dir-name dead"
+                >columbia_flight_data_recorder_dump.bin</span
+              >
             </div>
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.0k</span
+              ><span class="dir-date">1970-01-01</span
+              ><span class="dir-name dead"
+                >apollo_11_original_tapes/glitch_at_18_minutes.txt</span
+              >
+            </div>
+            <div class="dir-item">
+              <span class="dir-perms">-rw-r--r--</span
+              ><span class="dir-size">0.2k</span
+              ><span class="dir-date">1986-01-28</span
+              ><span class="dir-name dead">challenger_o_ring_temp_log.csv</span>
+            </div>
+          </div>
 
-            <a href="index.html" class="back-link">&lt;&lt; back to index</a>
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ file dialup_modem_sounds.mp3
+          </div>
+
+          <div class="output-text">
+            dialup_modem_sounds.mp3: MPEG ADTS, layer III, v1, 128 kbps, 44100
+            Hz, joint stereo<br />
+            &nbsp;&nbsp;duration: 00:03:47.12 &mdash; predicted content:
+            handshake sequences<br />
+            &nbsp;&nbsp;note: file contains embedded timestamp [1998-10-24
+            03:14:15 UTC]<br />
+            &nbsp;&nbsp;note: file also contains 0.4s of what sounds like
+            breathing @ marker 02:13:07
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ du -sh ./*
+          </div>
+
+          <div class="output-text">
+            12K&nbsp;&nbsp;./geocities_archive.tar.gz<br />
+            64K&nbsp;&nbsp;./winamp_skins_backup.zip<br />
+            4.1M&nbsp;&nbsp;./dialup_modem_sounds.mp3<br />
+            8K&nbsp;&nbsp;./netscape_navigator_bookmarks.html<br />
+            24K&nbsp;&nbsp;./floppy_disk_controller_driver.sys<br />
+            4K&nbsp;&nbsp;./aol_instant_messenger_logs.txt<br />
+            128K&nbsp;&nbsp;./icq_message_history.dat<br />
+            16K&nbsp;&nbsp;./realplayer_license_agreement.txt<br />
+            4.2M&nbsp;&nbsp;./macromedia_flash_player_v2.swf<br />
+            32K&nbsp;&nbsp;./mirc_scripts_v4.2.zip<br />
+            4K&nbsp;&nbsp;./windows_xp_bliss_wallpaper.bmp<br />
+            4K&nbsp;&nbsp;./myspace_layout_generator.html<br />
+            64K&nbsp;&nbsp;./google_reader_subscriptions.opml<br />
+            4K&nbsp;&nbsp;./kazaa_download_list.dat<br />
+            256K&nbsp;&nbsp;./midi_archive_volume_3.mid<br />
+            0K&nbsp;&nbsp;./worm.sasser.removal.tool.exe<br />
+            du: cannot read './orbital_debris': permission denied
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ strings ./aol_instant_messenger_logs.txt | head -20
+          </div>
+
+          <div class="output-text error">
+            strings: aol_instant_messenger_logs.txt: file too short<br />
+            &nbsp;&nbsp;but here is what is there:<br />
+            <br />
+            [22:14:01] &lt;xXx_D4RKN3SS_xXx&gt; hey u there?<br />
+            [22:14:12] &lt;xXx_D4RKN3SS_xXx&gt; my parents got me a new
+            compaq<br />
+            [22:14:23] &lt;xXx_D4RKN3SS_xXx&gt; it has 64mb of ram lmaoo<br />
+            [22:14:24] *** xXx_D4RKN3SS_xXx has signed off ***<br />
+            [22:14:24] *** end of log ***<br />
+            <br />
+            note: user xXx_D4RKN3SS_xXx last seen 1998-03-12 around 02:00 EST<br />
+            note: no further activity recorded from this account
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ cat dialup_modem_sounds.mp3
+          </div>
+
+          <div class="output-text error">
+            [0x0000FF] SYS.ERR :: unrecoverable sector at 0xBEEF<br />
+            [0x0000FE] the file remembers being deleted<br />
+            [0x0000FD] checksum mismatch &mdash; data has been replaced with
+            something else<br />
+            [0x0000FC] this format does not exist in any known specification<br />
+            [0x0000FB] whoever archived this is no longer responding<br />
+            [0x0000FA] do not attempt to reconstruct the original<br />
+            [0x0000F9] FATAL: archive has been self-modifying since 2009<br />
+            [0x0000F8] suggest immediate disconnect from network
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ ping -c 3 127.0.0.1
+          </div>
+
+          <div class="output-text error">
+            PING 127.0.0.1 (127.0.0.1): 56 data bytes<br />
+            64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=0.003 ms<br />
+            64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.002 ms<br />
+            64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.002 ms<br />
+            &nbsp;&nbsp;<br />
+            --- 127.0.0.1 ping statistics ---<br />
+            3 packets transmitted, 3 packets received, 0% packet loss<br />
+            &nbsp;&nbsp;<br />
+            ⚠ the interface seems to be responding from somewhere else
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ echo $SHELL
+          </div>
+
+          <div class="output-text error">
+            /bin/void<br />
+            &nbsp;&nbsp;<br />
+            ⚠ this shell does not exist in /etc/shells<br />
+            ⚠ this shell should not exist at all
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ uname -a
+          </div>
+
+          <div class="output-text">
+            Linux forgotten.tech 0.0.0.null #1 SMP PREEMPT_DYNAMIC Thu Jan 1
+            00:00:00 UTC 1970 x86_64 GNU/Linux<br />
+            &nbsp;&nbsp;<br />
+            ⚠ time since boot: NaN seconds<br />
+            ⚠ time since last user: NaN seconds<br />
+            ⚠ you are not the first user today. you are not the first user.
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ sudo rm -rf /
+          </div>
+
+          <div class="output-text error">
+            [sudo] password for user: _<br />
+            &nbsp;&nbsp;<br />
+            ⚠ sudo: You are not in the sudoers file.<br />
+            ⚠ This incident will be reported.<br />
+            ⚠ (but there is no one left to report it to)
+          </div>
+
+          <hr />
+
+          <div class="prompt-line">
+            <span class="path">user@forgotten.tech</span>:<span class="path"
+              >~/archive</span
+            >$ history | tail -10
+          </div>
+
+          <div class="output-text" style="color: #888888">
+            &nbsp;997&nbsp;&nbsp;cat /etc/passwd | grep -v
+            "nologin\|sync\|shutdown"<br />
+            &nbsp;998&nbsp;&nbsp;who<br />
+            &nbsp;999&nbsp;&nbsp;whoami<br />
+            &nbsp;1000&nbsp;echo "still here" >> /dev/null<br />
+            &nbsp;1001&nbsp;tail -f /var/log/syslog | grep -i
+            "error\|warn\|fail\|dead\|halt\|corrupt"<br />
+            &nbsp;1002&nbsp;./worm.sasser.removal.tool.exe<br />
+            &nbsp;1003&nbsp;ls -la ~/archive<br />
+            &nbsp;1004&nbsp;cd ~/archive<br />
+            &nbsp;1005&nbsp;ls -la<br />
+            &nbsp;1006&nbsp;df -h /
+          </div>
+
+          <hr />
+
+          <div
+            class="output-text"
+            style="
+              text-align: center;
+              color: #444488;
+              border-left-color: #444488;
+            "
+          >
+            connection to forgotten.tech closed by remote host.<br />
+            you cannot reconnect. there is no one to accept the handshake.
+          </div>
+
+          <div class="ascii-art" style="margin-top: 20px">
+            ______ / /\ / ____/ \_ / / / _/| / /___/ / | / ________/ | / / | | |
+            / / | | | / / | | | /__/ |___|___| || | | | || | | | || | | | ||
+            |___|___| ~ A monument to things that no longer load ~
+          </div>
+
+          <a href="index.html" class="back-link">&lt;&lt; back to index</a>
         </div>
-    </div>
+      </div>
 
-    <hr>
+      <hr />
 
-    <div style="text-align: center; padding: 10px; font-size: 0.7rem; color: #444444; font-family: 'Courier New', monospace;">
+      <div
+        style="
+          text-align: center;
+          padding: 10px;
+          font-size: 0.7rem;
+          color: #444444;
+          font-family: &quot;Courier New&quot;, monospace;
+        "
+      >
         //FORGOTTEN.TECH // NO MIRRORS // DATA MAY BE CORRUPTED
+      </div>
     </div>
 
-</div>
-
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
