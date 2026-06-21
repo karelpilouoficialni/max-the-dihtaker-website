@@ -104,6 +104,14 @@ a:hover {
   color: #888888;
   font-style: italic;
 }
+.void:link, .void:visited {
+  color: #888888;
+  font-style: italic;
+  text-decoration: none;
+}
+.void:hover {
+  color: #cccccc;
+}
 
 .entries-grid {
   max-width: 960px;
